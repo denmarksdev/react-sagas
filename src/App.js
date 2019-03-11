@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import reducers from './reducers/index'
 
 import Info from './components/Info'
+import axios from 'axios'
 
 import createSagaMiddleware from 'redux-saga'
 const sagaMiddleWare = createSagaMiddleware()
@@ -16,7 +17,9 @@ const store = createStore(
 )
 
 function *ola (){
-  yield console.log('hello from saga')
+  console.log('hello from saga')
+  const dados = yield axios.get('http://httpbin.org/ip')
+  console.log(dados.data)
 }
 
 sagaMiddleWare.run(ola)
