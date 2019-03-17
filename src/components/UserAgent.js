@@ -1,35 +1,33 @@
 import React from 'react'
 import { Card, Button, Alert } from 'react-bootstrap'
-import './Info.css'
 
 import { connect } from 'react-redux'
-import { loadDataRequest } from '../actions/actionsIP'
+import { loadDataUARequest } from '../actions/actionsUA'
 
-class Info extends React.Component {
+class UserAgent extends React.Component {
 
     render() {
-        const { isFetching , data, loadDataRequest } = this.props
 
-        console.log(isFetching)
+        const { isFetching } = this.props
 
         return (
             <Card className='info-container' >
                 <Card.Title>
-                    <p>Meu IP</p>
+                    <p>User Agent</p>
                 </Card.Title>
                 <Card.Body>
-                    <p>{JSON.stringify(data)}</p>
+                    <p>{JSON.stringify(this.props.data)}</p>
                 </Card.Body>
                 <Card.Footer>
                     {
                         !isFetching &&
-                        <Button variant='primary' onClick={() => loadDataRequest()}  >
+                        <Button variant='primary' onClick={() => this.props.loadData()}  >
                             Load
                         </Button>
                     }
                     {
                         isFetching &&
-                        <Alert variant='primary' >Loading ...</Alert>
+                        <Alert variant='primary' > Loading ... </Alert>
                     }
                 </Card.Footer>
             </Card>
@@ -39,16 +37,16 @@ class Info extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        isFetching: state.ip.isFetching,
-        data: state.ip.data,
-        error: state.ip.error
+        isFetching: state.ua.isFetching,
+        data: state.ua.data,
+        error: state.ua.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadDataRequest: () => dispatch(loadDataRequest())
+        loadData: () => dispatch(loadDataUARequest())
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Info)
+export default connect(mapStateToProps, mapDispatchToProps)(UserAgent)

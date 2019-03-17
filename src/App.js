@@ -4,25 +4,19 @@ import { Container } from 'react-bootstrap'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from './reducers/index'
-
 import Info from './components/Info'
-import axios from 'axios'
+import UserAgent from './components/UserAgent'
 
 import createSagaMiddleware from 'redux-saga'
-const sagaMiddleWare = createSagaMiddleware()
+import index from './sagas/index'
 
+const sagaMiddleWare = createSagaMiddleware()
 const store = createStore(
   reducers,
   applyMiddleware(sagaMiddleWare)
 )
 
-function *ola (){
-  console.log('hello from saga')
-  const dados = yield axios.get('http://httpbin.org/ip')
-  console.log(dados.data)
-}
-
-sagaMiddleWare.run(ola)
+sagaMiddleWare.run(index)
 
 class App extends Component {
   render() {
@@ -30,6 +24,7 @@ class App extends Component {
       <Provider store={store} >
         <Container>
           <Info />
+          <UserAgent/>
         </Container>
       </Provider>
     );

@@ -1,17 +1,32 @@
+import {
+    LOAD_DATA_REQUEST,
+    LOAD_DATA_SUCCESS,
+} from '../actions/actionsIP'
+
 const INITIAL_STATE = {
     data: [],
-    isFetiching: false,
-    error: false
+    error: false,
+    isFetching: false,
 }
 
-const LOAD_DATA_REQUEST = 'LOAD_DATA_REQUEST';
 const ip = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case (action.type === LOAD_DATA_REQUEST):
+        case LOAD_DATA_REQUEST:
             return {
-                isFetching: true,
                 data: [],
-                error: false
+                error: false,
+                isFetching: true
+            }
+        case LOAD_DATA_SUCCESS:
+            return {
+                data: action.data,
+                error: false,
+                isFetching: false
+            }
+        case 'LOAD_DATA_FAILURE':
+            return {
+                data: action.data,
+                error: true,
             }
         default:
             return state
@@ -19,4 +34,3 @@ const ip = (state = INITIAL_STATE, action) => {
 }
 
 export default ip
-

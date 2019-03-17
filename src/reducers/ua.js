@@ -1,16 +1,26 @@
+import { 
+    LOAD_UA_REQUEST,
+    LOAD_UA_SUCCESS 
+} from '../actions/actionsUA'
+
 const INITIAL_STATE = {
     data: [],
-    isFetiching: false,
-    error: false
+    isFetching: false,
+    error: false,
 }
 
-const LOAD_UA_REQUEST = 'LOAD_UA_REQUEST';
 const ua = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case (action.type === LOAD_UA_REQUEST):
+        case  LOAD_UA_REQUEST:
             return {
                 isFetching: true,
                 data: [],
+                error: false
+            }
+        case LOAD_UA_SUCCESS:
+            return {
+                isFetching: false,
+                data: action.data,
                 error: false
             }
         default:
@@ -18,4 +28,4 @@ const ua = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default  ua
+export default ua
