@@ -1,8 +1,8 @@
 
 import { loadDataSuccess } from '../actions/actionsIP'
-import { put } from 'redux-saga/effects'
+import { put, call } from 'redux-saga/effects'
 
 export function *getIP(axios) {
-    const dados = yield axios.get('http://httpbin.org/ip')
+    const dados = yield call(axios.get , 'http://httpbin.org/ip')
     yield put(loadDataSuccess(dados.data.origin))
   }
